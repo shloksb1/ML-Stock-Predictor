@@ -1,10 +1,9 @@
-import yfinance as yf
-import matplotlib.pyplot as plt
-import F1_data_import as di
+import pandas as pd
 
-def add_data(df):
+def add_data():
+    df = pd.read_csv(f'data/RAW_{ticker}_{start_date}_{end_date}.csv', index_col=0, parse_dates=True)
+
     #for the below calculations closing data is used as it is more indicative of the market
-
     #calculate 5-day, 10-day, and 20-day moving averages
     df['MA5'] = df['Close'].rolling(window=5).mean()
     df['MA10'] = df['Close'].rolling(window=10).mean()
@@ -21,13 +20,15 @@ def add_data(df):
     df['Momentum-5'] = df['Close'].diff(periods=5)
     df['Momentum-10'] = df['Close'].diff(periods=10)
 
+    #save the processed data to a CSV file
+    with open(f'data/PROCESSED_{ticker}_{start_date}_{end_date}.csv', 'w') as f:
+        df.to_csv(f)
     return df
 
 if __name__ == '__main__':
     ticker = 'GOOG'
     start_date = '2025-01-01'
     end_date = '2026-01-01'
-    df = di.get_data(ticker, start_date, end_date)
-    df = add_data(df)
+    df = add_data()
 
-    print(df.head())
+    print('PROCESSED DATA SAVED TO CSV')
