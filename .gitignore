@@ -1,1 +1,2 @@
+# files for storing raw and processed stock data, so that large amounts are not stored in variables
 data/

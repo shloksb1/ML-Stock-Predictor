@@ -1,7 +1,8 @@
 import pandas as pd
 
 def add_data():
-    df = pd.read_csv(f'data/RAW_{ticker}_{start_date}_{end_date}.csv', index_col=0, parse_dates=True)
+    # load the raw data from CSV
+    df = pd.read_csv(f'data/RAW.csv', index_col=0, parse_dates=True)
 
     #for the below calculations closing data is used as it is more indicative of the market
     #calculate 5-day, 10-day, and 20-day moving averages
@@ -21,14 +22,10 @@ def add_data():
     df['Momentum-10'] = df['Close'].diff(periods=10)
 
     #save the processed data to a CSV file
-    with open(f'data/PROCESSED_{ticker}_{start_date}_{end_date}.csv', 'w') as f:
+    with open('data/PROCESSED.csv', 'w') as f:
         df.to_csv(f)
     return df
 
 if __name__ == '__main__':
-    ticker = 'GOOG'
-    start_date = '2025-01-01'
-    end_date = '2026-01-01'
     df = add_data()
-
-    print('PROCESSED DATA SAVED TO CSV')
+    print(f'PROCESSED DATA SAVED TO CSV, {len(df)} rows')
