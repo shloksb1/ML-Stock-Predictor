@@ -20,11 +20,11 @@ def train_model():
     #the model is an XGBoost model which is using binary cross entopy as the loss function 
     model = XGBClassifier(n_estimators=1000,
                           learning_rate=0.05,
-                          max_depth=3,
+                          max_depth=4,
                           early_stopping_rounds=10,
                           eval_metric='logloss',) 
     model.fit(X_train, Y_train,
-              verbose=True,
+              verbose=False,
               eval_set=[(X_test, Y_test)])
 
     predictions = model.predict_proba(X_test)[:, 1]
@@ -32,7 +32,7 @@ def train_model():
     #calculate the log loss between the predicted and actual values
     logloss = log_loss(Y_test, predictions)
     
-    print(f"Log Loss: {logloss:.4f}")
+    print(f"\033[42mLog Loss: {logloss:.4f}\033[0m")
 
     #plot the actual vs predicted values
     '''plt.plot(Y_test.values, label='Actual')
@@ -48,6 +48,6 @@ def train_model():
 if __name__ == '__main__':
     model = train_model()
     dump(model, 'model/model.joblib')
-    print(f'MODEL TRAINED & SAVED TO JOBLIB')
+    print(f'\033[96mMODEL TRAINED & SAVED TO JOBLIB\033[0m')
 
     

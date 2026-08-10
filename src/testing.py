@@ -19,21 +19,24 @@ def test_model():
     
     pd.set_option('display.max_columns', None)
     pd.set_option('display.max_rows', None) 
+
     # this tests the input data on correlation with itself
     # this highlights large overlaps than should be removed to improve model performance
-    corr_matrix = df.corr()
+    corr_matrix = X_train.corr()
     #print(f"Correlation Matrix:\n{corr_matrix}")
 
     threshold = 0.85
     corr_pairs = corr_matrix.unstack()
     corr_pairs = corr_pairs[corr_pairs < 1]  # Exclude self-correlation
     high_corr =  corr_pairs[corr_pairs > threshold]
-    print(f"Highly Correlated Pairs: \n{high_corr}")
+    print(f"Highly Correlated Pairs: \n{high_corr}\n")
 
+    #this tests how much/ the importance of each data input to the model. this can also higlight data that needs to be removed.
     importances = pd.Series(model.feature_importances_, index=X_train.columns)
-    importances.sort_values(ascending=False)
-    print(f"Feature Importances:\n{importances}")
+    importances.sort_values(ascending=False, axis=0, inplace=True)
+    print(f"Feature Importances:\n{importances}\n")
+
 
 if __name__ == '__main__':
     test_model()
-    print(f'MODEL TESTED')
+    print(f'\033[96mMODEL TESTED\033[0m')

@@ -6,14 +6,12 @@ def add_data():
 
     #for the below calculations closing data is used as it is more indicative of the market
 
-    df['%Range'] = (df['High'] - df['Low']) / df['Close']  # daily range as a fraction of price
-
     #calculate 5-day, 20-day and 50-day moving averages
     MA5 = df['Close'].rolling(window=5).mean()
     MA20 = df['Close'].rolling(window=20).mean()
     MA50 = df['Close'].rolling(window=50).mean()
 
-    df['MA50_Distance'] = (df['Close'] - MA50) / MA50  # distance from 50-day MA as a fraction
+    df['MA50_Distance'] = (df['Close'] - MA50) / df['Close']  # distance from 50-day MA as a fraction
     df['MA5-20_Crossover'] = (MA5 - MA20)/MA20  # difference between 5-day and 20-day moving averages as a fraction
     #calculate the simple volatility (20-day & 50-day rolling standard deviation)
     df['Volatility20'] = df['Close'].rolling(window=20).std()
@@ -44,4 +42,4 @@ def add_data():
 
 if __name__ == '__main__':
     df = add_data()
-    print(f'PROCESSED DATA SAVED TO CSV, {len(df)} rows')
+    print(f'\033[96mPROCESSED DATA SAVED TO CSV, {len(df)} rows\033[0m')

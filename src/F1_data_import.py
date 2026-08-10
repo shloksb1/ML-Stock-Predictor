@@ -15,7 +15,7 @@ if __name__ == '__main__':
     end_date = '2026-01-01'
 
     df = get_data(ticker, start_date, end_date)
-    print(f'RAW DATA SAVED TO CSV, {len(df)} rows')
+    print(f'\033[96mRAW DATA SAVED TO CSV, {len(df)} rows\033[0m')
 
     '''import matplotlib.pyplot as plt
     df.plot(y='Close', 

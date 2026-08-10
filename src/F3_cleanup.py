@@ -20,5 +20,5 @@ def cleanup(delete):
 
 if __name__ == '__main__':
     df = cleanup(delete=True)
-    print(f'CLEANED DATA SAVED TO CSV, {len(df)} rows')
+    print(f'\033[96mCLEANED DATA SAVED TO CSV, {len(df)} rows\033[0m')
     
