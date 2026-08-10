@@ -11,7 +11,7 @@ def get_data(ticker, start_date, end_date):
 
 if __name__ == '__main__':
     ticker = 'GOOG'
-    start_date = '2025-01-01'
+    start_date = '2023-01-01'
     end_date = '2026-01-01'
 
     df = get_data(ticker, start_date, end_date)
