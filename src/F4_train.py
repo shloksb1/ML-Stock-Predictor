@@ -10,9 +10,8 @@ def train_model():
     df = pd.read_csv(f'data/CLEANED.csv', index_col=0, parse_dates=True)
 
     #separate the data into the input features and the expected output (target)
-    X = df
-    #this line sets the target to be 1 if the next day's price is higher than today's price, and 0 otherwise
-    Y = (df['Close'].shift(-20) > df['Close']).astype(int) 
+    X = df.drop('Close', axis=1)  # drop the 'Close' column
+    Y = (df['Close'].shift(-20) > df['Close']).astype(int) # sets target to  1 if the 20 day price is higher than today & 0 otherwise
 
     #split the data into training and testing sets
     X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, shuffle=False)
@@ -48,7 +47,7 @@ def train_model():
 
 if __name__ == '__main__':
     model = train_model()
-    #dump(model, 'model/model.joblib')
+    dump(model, 'model/model.joblib')
     print(f'MODEL TRAINED & SAVED TO JOBLIB')
 
     
